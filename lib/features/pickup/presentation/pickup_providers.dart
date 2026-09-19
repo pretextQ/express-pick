@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/pickup_code_repository.dart';
+import '../data/pickup_sync_service.dart';
 import '../domain/pickup_code.dart';
 import '../domain/pickup_code_repository.dart';
 
@@ -16,6 +17,23 @@ class PickupListController extends AsyncNotifier<List<PickupCode>> {
   /// 手动刷新（P0 从本地库重载，P1 接入平台同步）
   Future<void> refresh() async {
     state = await AsyncValue.guard(_repo.getAll);
+  }
+
+  /// 同步平台取件码后刷新列表，返回用于提示的文案。
+  /// 同步失败不影响本地刷新（静默降级为 P0 行为）。
+  Future<String> syncAndRefresh() async {
+    var message = '已刷新';
+    try {
+      final sync = await ref.read(syncServiceProvider.future);
+      final result = await sync.syncAll();
+      if (result.fetched > 0) {
+        message = '同步到 ${result.fetched} 条取件码';
+      }
+    } catch (_) {
+      // 配置加载失败或抓取异常时降级为本地刷新
+    }
+    await refresh();
+    return message;
   }
 
   /// 新增/更新取件码

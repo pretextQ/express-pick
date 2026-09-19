@@ -52,8 +52,9 @@ express-pick/
 - [x] Flutter项目骨架（Riverpod + GoRouter + sqflite + webview_flutter）
 
 ### P1：登录与同步
-- [ ] 登录态保持（Cookie持久化与过期检测）
-- [ ] H5取件码抓取与前台自动刷新（以阶段0结论为准，失败则维持手动录入）
+- [x] 登录态保持（WebView Cookie沙箱持久化；身份码页登录状态检测；设置页退出登录）
+- [x] 前台自动同步框架（配置驱动H5抓取+解析器，平台未配置时自动跳过）
+- [ ] H5取件码抓取上线（选择器待真机登录后回填，见阶段0报告遗留项）
 
 ### P2：扩展功能
 - [ ] 通知/短信识别（仅Android）
@@ -71,6 +72,7 @@ express-pick/
 
 ## 开发环境
 
+- **主要目标平台：Android**（以Android真机验收为准；iOS功能对齐但优先级降低）
 - Flutter 3.47.5 stable（本机安装于 `C:\flutter`，未加入PATH）
 - 构建时使用中国镜像：`FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn`、`PUB_HOSTED_URL=https://pub.flutter-io.cn`
 - 常用命令：`flutter analyze` / `flutter test` / `flutter run`（需Android SDK）

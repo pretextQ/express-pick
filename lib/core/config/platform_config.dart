@@ -41,6 +41,10 @@ class PlatformConfig {
   String? pickupUrl(PickupPlatform platform) =>
       _node(platform)?['pickupUrl'] as String?;
 
+  /// 取件码提取选择器（真机登录后回填）
+  String? pickupCodeSelector(PickupPlatform platform) =>
+      _node(platform)?['pickupCodeSelector'] as String?;
+
   /// 支持身份码展示的平台（配置中存在 identityUrl 的）
   List<PickupPlatform> get identityPlatforms =>
       PickupPlatform.values.where((p) => identityUrl(p) != null).toList();

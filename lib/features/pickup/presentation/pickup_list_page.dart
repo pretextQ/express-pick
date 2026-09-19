@@ -8,12 +8,26 @@ import '../domain/pickup_code.dart';
 import '../domain/pickup_platform.dart';
 import 'pickup_providers.dart';
 
-/// 取件码列表页（P0 首页）
-class PickupListPage extends ConsumerWidget {
+/// 取件码列表页（P0 首页；P1 起支持前台自动同步）
+class PickupListPage extends ConsumerStatefulWidget {
   const PickupListPage({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<PickupListPage> createState() => _PickupListPageState();
+}
+
+class _PickupListPageState extends ConsumerState<PickupListPage> {
+  @override
+  void initState() {
+    super.initState();
+    // P1：前台打开时自动同步（平台未配置抓取地址时为空操作）
+    Future.microtask(() {
+      if (mounted) ref.read(pickupListProvider.notifier).syncAndRefresh();
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final configAsync = ref.watch(platformConfigProvider);
     final listAsync = ref.watch(pickupListProvider);
 
@@ -29,7 +43,15 @@ class PickupListPage extends ConsumerWidget {
         ],
       ),
       body: RefreshIndicator(
-        onRefresh: () => ref.read(pickupListProvider.notifier).refresh(),
+        onRefresh: () async {
+          final messenger = ScaffoldMessenger.of(context);
+          final message = await ref
+              .read(pickupListProvider.notifier)
+              .syncAndRefresh();
+          if (mounted) {
+            messenger.showSnackBar(SnackBar(content: Text(message)));
+          }
+        },
         child: ListView(
           physics: const AlwaysScrollableScrollPhysics(),
           children: [

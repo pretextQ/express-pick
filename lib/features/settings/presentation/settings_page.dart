@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/config/platform_config.dart';
+import '../../auth/data/webview_auth_repository.dart';
 import '../../pickup/presentation/pickup_providers.dart';
 
-/// 设置页（P0：平台配置展示 + 已取件记录清理）
+/// 设置页（平台配置展示 + 账号管理 + 已取件记录清理）
 class SettingsPage extends ConsumerWidget {
   const SettingsPage({super.key});
 
@@ -34,6 +35,14 @@ class SettingsPage extends ConsumerWidget {
             ),
           ),
           const Divider(),
+          const _SectionHeader(title: '账号'),
+          ListTile(
+            leading: const Icon(Icons.logout),
+            title: const Text('退出登录'),
+            subtitle: const Text('清除淘宝/菜鸟登录态（WebView Cookie），不影响本地取件码'),
+            onTap: () => _confirmLogout(context, ref),
+          ),
+          const Divider(),
           const _SectionHeader(title: '数据'),
           ListTile(
             leading: const Icon(Icons.delete_sweep_outlined),
@@ -48,6 +57,32 @@ class SettingsPage extends ConsumerWidget {
         ],
       ),
     );
+  }
+
+  Future<void> _confirmLogout(BuildContext context, WidgetRef ref) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('退出登录'),
+        content: const Text('将清除所有平台的登录态，下次使用需重新登录。'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('取消'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('退出'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed != true) return;
+    await ref.read(authRepositoryProvider).logout();
+    if (context.mounted) {
+      ScaffoldMessenger.of(context)
+          .showSnackBar(const SnackBar(content: Text('已清除登录态，请重新登录')));
+    }
   }
 
   Future<void> _confirmClear(BuildContext context, WidgetRef ref) async {
