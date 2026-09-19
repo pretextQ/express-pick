@@ -1,0 +1,32 @@
+{
+  "taobao": {
+    "loginUrl": "https://login.m.taobao.com/login.htm",
+    "identityEntryUrl": "https://market.m.taobao.com/app/cn-yz/multi-activity/authCode.html",
+    "identityUrl": "https://page.cainiao.com/cn-app-web/identity-code/index.html#/?source=&bizEntry=TAOBAO_GUOGUO",
+    "loginRedirectUrl": "https://h5.m.taobao.com/other/loginend.html",
+    "pickupCodeSelector": null,
+    "identityCodeSelector": null
+  },
+  "cainiao": {
+    "loginUrl": "https://login.m.taobao.com/login.htm",
+    "identityUrl": "https://page.cainiao.com/cn-app-web/identity-code/index.html#/?source=&bizEntry=TAOBAO_GUOGUO",
+    "loginRedirectUrl": "https://h5.m.taobao.com/other/loginend.html",
+    "pickupCodeSelector": null,
+    "identityCodeSelector": null
+  },
+  "pinduoduo": {
+    "loginUrl": "https://mobile.yangkeduo.com/login.html",
+    "pickupUrl": null,
+    "pickupCodeSelector": null
+  },
+  "kuaidi100": {
+    "apiEndpoint": null,
+    "apiKey": null,
+    "note": "阶段0结论：驿站取件码API为企业订阅制，个人不可用，本模块已移除（见 阶段0技术验证报告.md）"
+  },
+  "_meta": {
+    "updatedAt": "2026-09-19",
+    "source": "阶段0技术验证报告.md",
+    "note": "所有 selector 为 null，待真机登录后实测回填；URL 随平台页面更新可能失效，属预期内风险"
+  }
+}
