@@ -13,6 +13,7 @@
 ## 代码规范
 
 ### 命名规范
+- 避免与SDK保留名冲突：平台枚举使用 `PickupPlatform`，不使用 `Platform`（与 dart:io / TargetPlatform 冲突）
 - 类名：PascalCase（如 `PickupCodeRepository`）
 - 变量/函数名：camelCase（如 `pickupCode`、`fetchPickupCodes`）
 - 常量：camelCase（如 `defaultTimeout`）
@@ -49,12 +50,13 @@ lib/
 │       ├── data/
 │       ├── domain/
 │       └── presentation/
-├── core/                    # 核心模块
-│   ├── network/             # 网络请求
-│   ├── storage/             # 存储
-│   └── utils/               # 工具类
-└── assets/                  # 资源文件
-    └── platform_config.json # 平台配置
+└── core/                    # 核心模块
+    ├── network/             # 网络请求
+    ├── storage/             # 存储
+    └── utils/               # 工具类
+
+assets/                      # 资源文件（项目根目录，需在 pubspec.yaml 的 flutter.assets 中声明）
+└── platform_config.json     # 平台配置
 ```
 
 ## 常用命令
@@ -91,9 +93,9 @@ flutter build ios
 
 ## 任务拆分原则
 
-1. **小步迭代**：单个任务改动不超过3个文件
+1. **小步迭代**：单个任务改动不超过3个文件（例外：`flutter create` 初始化、全局重命名等机械性任务不受限，但需在任务说明中注明）
 2. **单一职责**：每个任务只解决一个问题
-3. **可测试性**：每个任务必须有对应的测试用例
+3. **可测试性**：每个任务必须有对应的测试用例（WebView/平台通道代码以mock层测试+人工验收替代）
 4. **完成标准**：通过 `flutter analyze` 和 `flutter test`
 
 ## 提交规范
