@@ -46,9 +46,10 @@ express-pick/
 > 详细结论见 [阶段0技术验证报告.md](阶段0技术验证报告.md)
 
 ### P0：核心功能
-- [ ] WebView聚合展示（淘宝、菜鸟身份码，以阶段0结论为准）
-- [ ] 取件码手动录入与本地存储（P0不做H5抓取）
-- [ ] 取件码列表与详情
+- [x] WebView聚合展示（淘宝、菜鸟身份码，真实URL来自阶段0验证）
+- [x] 取件码手动录入与本地存储（SQLite）
+- [x] 取件码列表与详情
+- [x] Flutter项目骨架（Riverpod + GoRouter + sqflite + webview_flutter）
 
 ### P1：登录与同步
 - [ ] 登录态保持（Cookie持久化与过期检测）
@@ -65,6 +66,14 @@ express-pick/
 - [x] 设计文档编写
 - [x] README编写
 - [x] 文档评审与修订（2026-09-19）
+- [x] 阶段0技术验证Spike（2026-09-19）
+- [x] P0核心功能开发（2026-09-19）
+
+## 开发环境
+
+- Flutter 3.47.5 stable（本机安装于 `C:\flutter`，未加入PATH）
+- 构建时使用中国镜像：`FLUTTER_STORAGE_BASE_URL=https://storage.flutter-io.cn`、`PUB_HOSTED_URL=https://pub.flutter-io.cn`
+- 常用命令：`flutter analyze` / `flutter test` / `flutter run`（需Android SDK）
 
 ## 许可证
 
