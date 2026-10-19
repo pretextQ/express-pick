@@ -131,6 +131,14 @@ Closes #123
 
 ## 分支管理
 
+### 唯一远端与推送约定
+
+- 自2026-10-19起，本项目只推送到 [GitHub 仓库](https://github.com/pretextQ/express-pick)。
+- 本地唯一远端为 `origin`，指向 `https://github.com/pretextQ/express-pick.git`；`main` 跟踪 `origin/main`。
+- 不向 Gitee 推送，不自动恢复旧远端或执行多远端同步；以后变更目标须由用户明确指定。
+- 默认使用 `git push origin main`；功能分支使用 `git push -u origin <branch>`。
+- 远端 URL 不包含令牌；凭证由本机 Git 凭证管理器处理，不写入文档或提交。
+
 - `main`：主分支，稳定版本
 - `develop`：开发分支
 - `feature/*`：功能分支
